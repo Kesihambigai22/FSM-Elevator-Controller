@@ -221,11 +221,11 @@ FSM-Elevator-Controller
 ![FPGA Board](images/FPGA_BOARD.jpg)
 
 ---
-
 ## 📄 Documentation
 
-- 📘 Full Report: [FSM Based Elevator Controller](./doc/FSM_Based_Elevator_Controller_VTOP_Report.pdf)
-- 📄 Short Report: [FSM Elevator](./doc/FSM_ELEVATOR.pdf)
+- 📘 Full Report: [Open PDF](./doc/FSM_Based_Elevator_Controller_VTOP_Report.pdf)
+- 📄 Short Report: [Open PDF](./doc/FSM_ELEVATOR.pdf)
+
 ---
 
 ## 👩‍💻 Author
