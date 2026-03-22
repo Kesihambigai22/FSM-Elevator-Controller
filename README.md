@@ -224,9 +224,8 @@ FSM-Elevator-Controller
 
 ## 📄 Documentation
 
-Detailed reports available in [doc/ folder](doc/FSM_Based_Elevator_Controller_Report.pdf)
-Short reports available in [doc/ folder](doc/FSM_ELEVATOR.pdf)
-
+- 📘 Full Report: [FSM Based Elevator Controller](./doc/FSM_Based_Elevator_Controller_VTOP_Report.pdf)
+- 📄 Short Report: [FSM Elevator](./doc/FSM_ELEVATOR.pdf)
 ---
 
 ## 👩‍💻 Author
