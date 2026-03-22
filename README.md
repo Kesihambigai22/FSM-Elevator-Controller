@@ -2,133 +2,107 @@
 
 ---
 
-## 📌 Project Overview
+## 📌 Overview
 
-This project implements a **real-time Elevator Control System** using a **Finite State Machine (FSM)** designed in **Verilog HDL** and deployed on an **FPGA platform**.
+This project implements an **Elevator Control System** using a **Finite State Machine (FSM)** on an FPGA. The system is designed in **Verilog HDL**, simulated using **ModelSim**, and deployed on real hardware using **Intel Quartus Prime**.
 
-The system efficiently handles:
+It efficiently handles:
 
-* Floor requests
+* Floor selection
 * Elevator movement (Up/Down)
-* Door operations
-
-Unlike traditional microcontroller-based systems, this design leverages **parallel processing of FPGA**, ensuring **fast, deterministic, and reliable performance**.
+* Door control operations
 
 ---
 
-## 🎯 Problem Statement
+## 🎯 Objective
 
-Modern multi-storey buildings require **efficient, safe, and real-time elevator systems**. Traditional solutions may suffer from delays and limited parallel processing.
+To design and implement a **real-time elevator controller** using FSM that ensures:
 
-👉 This project solves that by using:
-
-* FSM-based control
-* Hardware-level execution on FPGA
-* Deterministic state transitions
+* Deterministic behavior
+* Fast response
+* Reliable hardware execution
 
 ---
 
-## 🧠 Core Concepts Used
+## 🧠 Core Concept
 
-* Finite State Machine (FSM)
-* Sequential Digital Circuits
-* Flip-Flops & Registers
-* Clock Division
-* Digital Logic Design
-* Hardware Description Language (Verilog)
+The entire system is modeled as a **Finite State Machine (FSM)** with three main states:
 
-### 🔁 FSM States
-
-* **IDLE** → Waiting for user input
-* **MOVE** → Elevator moves (Up/Down)
+* **IDLE** → Waiting for user request
+* **MOVE** → Elevator moves up or down
 * **DOOR** → Door opens at destination
+
+👉 State transitions depend on:
+
+* Current floor
+* Requested floor
+* User input
 
 ---
 
 ## ⚙️ Hardware Components
 
-### 🔧 Core Hardware
+### 🔧 Main Components
 
-* FPGA Development Board (Altera DE2-115 / Cyclone IV)
-* On-board 50 MHz Clock
-* Push Buttons (Reset, Request)
+* FPGA Board (Altera DE2-115 / Cyclone IV)
+* 50 MHz On-board Clock
 * Slide Switches (Floor Selection)
+* Push Buttons (Reset & Request)
 
-### 💡 Output Devices
+### 💡 Output Indicators
 
-* LEDs for status indication:
+* LED0 → UP movement
+* LED1 → DOWN movement
+* LED2 → DOOR OPEN
 
-  * LED0 → Up movement
-  * LED1 → Down movement
-  * LED2 → Door open
+### 🔌 Supporting
 
-### 🔌 Supporting Components
-
-* JTAG / USB Blaster (for programming)
-* 5V Power Supply
-* Computer System (for development & simulation)
+* USB Blaster / JTAG Programmer
+* Power Supply
+* Computer (Quartus + ModelSim)
 
 ---
 
-## 💻 Software & Tools Used
+## 💻 Software & Tools
 
-* **Verilog HDL** → System design
+* **Verilog HDL** → Design & implementation
 * **Intel Quartus Prime** → Synthesis & FPGA programming
-* **ModelSim** → Simulation & waveform analysis
-
----
-
-## 🧩 System Architecture
-
-The system is designed as an FSM where:
-
-* Inputs → Floor request + reset
-* Processing → FSM logic
-* Outputs → Movement + door signals
-
-👉 The controller continuously:
-
-1. Reads input
-2. Decides direction
-3. Moves elevator
-4. Opens door at destination
-5. Returns to idle
+* **ModelSim** → Simulation & verification
 
 ---
 
 ## 🔄 Working Principle
 
-1. User selects floor using switches
+1. User selects a floor using switches
 2. Presses request button
-3. FSM checks:
+3. FSM checks direction:
 
-   * If target > current → Move Up
-   * If target < current → Move Down
-4. Elevator moves step-by-step
-5. When destination reached:
+   * If requested > current → Move Up
+   * If requested < current → Move Down
+4. Elevator moves floor-by-floor
+5. On reaching destination:
 
-   * Door opens (timer controlled)
+   * Door opens for a fixed duration
 6. System returns to IDLE
 
 ---
 
-## 🛠️ Implementation Details
+## 🛠️ Implementation
 
-### 📌 Modules Used
+### 📂 Code Structure
 
-* `elevator_controller.v` → Core FSM logic
-* `elevator_top.v` → FPGA interfacing
-* `testbench.v` → Simulation
+* `src/elevator_controller.v` → FSM logic
+* `src/elevator_top.v` → Hardware interfacing
+* `src/testbench.v` → Simulation
 
-### ⏱️ Clock Optimization
+### ⏱️ Clock Division
 
-* 50 MHz clock divided to ~1 Hz
-* Allows human-visible operation
+* 50 MHz clock divided to slow signal (~1 Hz)
+* Makes operation human-visible
 
-### ⏲️ Door Timing
+### ⏲️ Door Timer
 
-* Timer implemented in FSM
-* Keeps door open for fixed duration
+* Counter-based delay in DOOR state
 
 ---
 
@@ -136,40 +110,39 @@ The system is designed as an FSM where:
 
 ### ✔ Simulation
 
-* Done using ModelSim
-* Tested multiple scenarios:
+* Performed using ModelSim
+* Verified:
 
-  * Up movement
-  * Down movement
-  * Reset behavior
+  * Up/Down movement
+  * State transitions
+  * Door timing
 
 ### ✔ Hardware Testing
 
-* Implemented on FPGA board
-* Verified using LEDs
-* Output matched expected FSM behavior
+* Implemented on FPGA
+* LEDs confirmed correct behavior
 
 ---
 
 ## 📊 Results
 
-### Example 1: Floor 0 → 3
+### 🔼 Case 1: Floor 0 → 3
 
 * Elevator moves UP
-* Stops at each floor
+* Stops correctly
 * Door opens at destination
 
-### Example 2: Floor 3 → 1
+### 🔽 Case 2: Floor 3 → 1
 
 * Elevator moves DOWN
 * Door opens correctly
 * Returns to IDLE
 
-👉 System showed:
+✅ System showed:
 
 * Accurate floor tracking
-* Correct direction control
-* Reliable door timing
+* Correct direction logic
+* Stable FSM transitions
 
 ---
 
@@ -178,39 +151,38 @@ The system is designed as an FSM where:
 ### 🔧 Technical Skills
 
 * FPGA Programming
-* Verilog HDL Design
-* FSM Design & Optimization
-* Digital System Design
+* Verilog HDL
+* FSM Design
+* Digital Logic Design
 * Hardware Debugging
 * Simulation (ModelSim)
 
 ### 🧠 Practical Skills
 
 * Problem Solving
-* System Design Thinking
-* Debugging Hardware + Code
+* System Design
+* Debugging
 * Team Collaboration
 
 ---
 
 ## 🌍 Applications
 
-* Elevator systems in buildings
+* Elevator systems
 * Industrial automation
 * Smart buildings
-* Robotics control systems
+* Robotics control
 * Traffic management systems
 
 ---
 
-## 🚀 Future Improvements
+## 🚀 Future Enhancements
 
 * Multi-floor expansion (8–16 floors)
 * Multiple elevator coordination
-* AI-based scheduling algorithms
-* IoT-based remote monitoring
-* Voice & display interface
-* Power optimization techniques
+* AI-based scheduling
+* IoT integration
+* Voice & display systems
 
 ---
 
@@ -222,35 +194,38 @@ FSM-Elevator-Controller
  ┃ ┣ elevator_controller.v
  ┃ ┣ elevator_top.v
  ┃ ┗ testbench.v
- ┣ 📂 docs
- ┃ ┗ report.pdf
+ ┣ 📂 doc
+ ┃ ┣ FSM_Based_Elevator_Controller_VTOP_Report.pdf
+ ┃ ┗ FSM_ELEVATOR.pdf
  ┣ 📂 images
- ┃ ┣ block_diagram.png
- ┃ ┣ fsm_diagram.png
- ┃ ┗ hardware_setup.png
+ ┃ ┣ FPGA_BOARD.jpg
+ ┃ ┣ FPGA_Elevator_Block_diagram.jpg
+ ┃ ┗ FPGA_Elevator_FSM_LOGIC_diagram.jpg
  ┣ README.md
- ┗ LICENSE
 ```
 
 ---
 
 ## 📸 System Diagrams
 
-(Add images in GitHub)
+### 🔹 Block Diagram
 
-```
-![FSM Diagram](images/FPGA_Elevator_FMS_LOGIC_diagram.jpg)
 ![Block Diagram](images/FPGA_Elevator_Block_diagram.jpg)
-![Hardware Setup](images/FPGA_BOARD.jpg)
-```
+
+### 🔹 FSM Diagram
+
+![FSM Diagram](images/FPGA_Elevator_FSM_LOGIC_diagram.jpg)
+
+### 🔹 Hardware Setup
+
+![FPGA Board](images/FPGA_BOARD.jpg)
 
 ---
 
-## 📄 Project Report
+## 📄 Documentation
 
-Detailed documentation available in:
-📁 (docs/FSM_Based_Elevator_Controller_VTOP_Report.pdf)
-📁 (docs/FSM_ELEVATOR.pdf)
+Detailed reports available in [doc/ folder](doc/FSM_Based_Elevator_Controller_Report.pdf)
+Short reports available in [doc/ folder](doc/FSM_ELEVATOR.pdf)
 
 ---
 
@@ -264,4 +239,4 @@ VIT Vellore
 
 ## ⭐ Final Note
 
-This project demonstrates how **theoretical digital design concepts** can be transformed into a **real-time hardware system**, bridging the gap between **academics and practical engineering**.
+This project demonstrates how **digital design concepts** can be implemented in **real hardware systems**, providing a strong foundation in **FPGA and embedded system design**.
